@@ -16,7 +16,7 @@ public class CrosshairManager : MonoBehaviour
 
     void Start()
     {
-        m_WeaponsManager = GameObject.FindObjectOfType<PlayerWeaponsManager>();
+        m_WeaponsManager = FindObjectOfType<PlayerWeaponsManager>();
         DebugUtility.HandleErrorIfNullFindObject<PlayerWeaponsManager, CrosshairManager>(m_WeaponsManager, this);
 
         OnWeaponChanged(m_WeaponsManager.GetActiveWeapon());

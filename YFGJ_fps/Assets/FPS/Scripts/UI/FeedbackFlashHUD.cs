@@ -41,11 +41,16 @@ public class FeedbackFlashHUD : MonoBehaviour
     void Start()
     {
         // Subscribe to player damage events
-        PlayerCharacterController playerCharacterController = FindObjectOfType<PlayerCharacterController>();
-        DebugUtility.HandleErrorIfNullFindObject<PlayerCharacterController, FeedbackFlashHUD>(playerCharacterController, this);
+        GameObject currentCharacterController;
 
-        m_PlayerHealth = playerCharacterController.GetComponent<Health>();
-        DebugUtility.HandleErrorIfNullGetComponent<Health, FeedbackFlashHUD>(m_PlayerHealth, this, playerCharacterController.gameObject);
+		if (FindObjectOfType<PlayerCharacterController>() == null) {
+			currentCharacterController = FindObjectOfType<PlayerEnemyMove>().gameObject;
+		} else {
+			currentCharacterController = FindObjectOfType<PlayerCharacterController>().gameObject;
+		}
+
+		m_PlayerHealth = currentCharacterController.GetComponent<Health>();
+        DebugUtility.HandleErrorIfNullGetComponent<Health, FeedbackFlashHUD>(m_PlayerHealth, this, currentCharacterController.gameObject);
 
         m_GameFlowManager = FindObjectOfType<GameFlowManager>();
         DebugUtility.HandleErrorIfNullFindObject<GameFlowManager, FeedbackFlashHUD>(m_GameFlowManager, this);

@@ -3,6 +3,8 @@ using UnityEngine.Events;
 
 public class Health : MonoBehaviour
 {
+	[Tooltip("Name of the object if hovered over")]
+	public string objectName;
     [Tooltip("Maximum amount of health")]
     public float maxHealth = 10f;
     [Tooltip("Health ratio at which the critical health vignette starts appearing")]
