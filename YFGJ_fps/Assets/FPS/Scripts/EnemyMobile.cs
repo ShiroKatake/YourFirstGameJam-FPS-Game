@@ -33,7 +33,7 @@ public class EnemyMobile : MonoBehaviour
     const string k_AnimAlertedParameter = "Alerted";
     const string k_AnimOnDamagedParameter = "OnDamaged";
 
-    void Start()
+    void Awake()
     {
         m_EnemyController = GetComponent<EnemyController>();
         DebugUtility.HandleErrorIfNullGetComponent<EnemyController, EnemyMobile>(m_EnemyController, this, gameObject);
