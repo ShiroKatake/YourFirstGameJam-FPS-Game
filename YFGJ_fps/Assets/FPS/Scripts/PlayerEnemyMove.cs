@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(EnemyController))]
 public class PlayerEnemyMove : MonoBehaviour {
 
 	[Header("Movement")]
@@ -13,16 +12,12 @@ public class PlayerEnemyMove : MonoBehaviour {
 	public Transform groundCheck;
 
 	private CharacterController m_CharacterController;
-	private EnemyController m_EnemyController;
 	private Vector3 velocity;
 	private bool isGrounded;
 
 	private void Start() {
-		m_CharacterController = GetComponent<CharacterController>();
+		m_CharacterController = GetComponentInParent<CharacterController>();
 		DebugUtility.HandleErrorIfNullGetComponent<CharacterController, PlayerEnemyMove>(m_CharacterController, this, gameObject);
-
-		m_EnemyController = GetComponent<EnemyController>();
-		DebugUtility.HandleErrorIfNullGetComponent<EnemyController, PlayerEnemyMove>(m_EnemyController, this, gameObject);
 	}
 
 	private void Update() {

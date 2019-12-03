@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(EnemyController))]
 public class PlayerEnemyShoot : MonoBehaviour {
 	private EnemyController m_EnemyController;
 
@@ -11,8 +10,12 @@ public class PlayerEnemyShoot : MonoBehaviour {
 	public Transform fireDirection;
 
 	void Start() {
-		m_EnemyController = GetComponent<EnemyController>();
-		DebugUtility.HandleErrorIfNullGetComponent<EnemyController, PlayerEnemyMove>(m_EnemyController, this, gameObject);
+		m_EnemyController = GetComponentInParent<EnemyController>();
+	}
+
+	void OnEnable() {
+		firepoint = Camera.main.transform.Find("Firepoint");
+		fireDirection = Camera.main.transform.Find("FireDirection");
 	}
 
 	void Update() {
