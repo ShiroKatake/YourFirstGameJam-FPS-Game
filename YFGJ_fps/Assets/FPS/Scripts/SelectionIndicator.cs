@@ -20,7 +20,7 @@ public class SelectionIndicator : MonoBehaviour {
 			rs = mm.selectedObject.GetComponentsInChildren<SkinnedMeshRenderer>();
 			Bounds bigBounds = rs[0].bounds;
 			foreach (var r in rs) {
-				bigBounds.Encapsulate(r.bounds);
+				bigBounds.Encapsulate(r.bounds.center);
 			}
 			
 			textUI.text = mm.selectedObject.GetComponent<Health>().objectName + " (E)";
