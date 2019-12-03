@@ -28,6 +28,7 @@ public class GameFlowManager : MonoBehaviour
 
     public bool gameIsEnding { get; private set; }
 
+	EnemyManager m_enemyManager;
     PlayerCharacterController m_Player;
     NotificationHUDManager m_NotificationHUDManager;
     ObjectiveManager m_ObjectiveManager;
@@ -36,7 +37,8 @@ public class GameFlowManager : MonoBehaviour
 
     void Start()
     {
-        m_Player = FindObjectOfType<PlayerCharacterController>();
+		m_enemyManager = FindObjectOfType<EnemyManager>();
+		m_Player = FindObjectOfType<PlayerCharacterController>();
         DebugUtility.HandleErrorIfNullFindObject<PlayerCharacterController, GameFlowManager>(m_Player, this);
 
         m_ObjectiveManager = FindObjectOfType<ObjectiveManager>();
@@ -67,8 +69,15 @@ public class GameFlowManager : MonoBehaviour
                 EndGame(true);
 
             // Test if player died
-            if (m_Player.isDead)
-                EndGame(false);
+			if (m_Player != null) {
+				if (m_Player.isDead)
+					EndGame(false);
+			}
+
+			if (m_enemyManager.switchables.Count <= 0 ) {
+				Debug.Log("GameOver");
+				EndGame(false);
+			}
         }
     }
 
