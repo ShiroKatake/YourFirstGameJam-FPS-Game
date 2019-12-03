@@ -13,6 +13,7 @@ public class Compass : MonoBehaviour {
 	public GameObject MarkerDirectionPrefab;
 	public Transform currentCharacterController;
 
+	SwitchPOV pov;
 	Transform m_PlayerTransform;
 	Dictionary<Transform, CompassMarker> m_ElementsDictionnary = new Dictionary<Transform, CompassMarker>();
 
@@ -20,8 +21,9 @@ public class Compass : MonoBehaviour {
 	float m_heightOffset;
 
 	void Awake() {
+		pov = FindObjectOfType<SwitchPOV>();
 		if (FindObjectOfType<PlayerCharacterController>() == null) {
-			currentCharacterController = FindObjectOfType<PlayerEnemyMove>().transform;
+			currentCharacterController = FindObjectOfType<PlayerEnemyMove>().transform.root.transform;
 		} else {
 			currentCharacterController = FindObjectOfType<PlayerCharacterController>().transform;
 		}
@@ -32,6 +34,7 @@ public class Compass : MonoBehaviour {
 	}
 
 	void Update() {
+		m_PlayerTransform = pov.currentBody.transform;
 		// this is all very WIP, and needs to be reworked
 		foreach (var element in m_ElementsDictionnary) {
 			float distanceRatio = 1;

@@ -7,20 +7,28 @@ public class PlayerHealthBar : MonoBehaviour {
 	[Tooltip("Image component dispplaying current health")]
 	public Image healthFillImage;
 
+	public GameObject currentBody;
+	GameObject newBody;
 	Health m_PlayerHealth;
-	public GameObject currentCharacterController;
+
+	SwitchPOV pov;
 
 	private void Start() {
 		if (FindObjectOfType<PlayerCharacterController>() == null) {
-			currentCharacterController = FindObjectOfType<PlayerEnemyMove>().gameObject;
+			currentBody = FindObjectOfType<PlayerEnemyMove>().transform.root.gameObject;
 		} else {
-			currentCharacterController = FindObjectOfType<PlayerCharacterController>().gameObject;
+			currentBody = FindObjectOfType<PlayerCharacterController>().gameObject;
 		}
-		m_PlayerHealth = currentCharacterController.GetComponent<Health>();
-		DebugUtility.HandleErrorIfNullGetComponent<Health, PlayerHealthBar>(m_PlayerHealth, this, currentCharacterController.gameObject);
+		m_PlayerHealth = currentBody.GetComponent<Health>();
+		pov = FindObjectOfType<SwitchPOV>();
 	}
 
 	void Update() {
+		newBody = pov.currentBody;
+		if (currentBody != newBody) {
+			currentBody = newBody;
+			m_PlayerHealth = currentBody.GetComponent<Health>();
+		}
 		// update health bar value
 		healthFillImage.fillAmount = m_PlayerHealth.currentHealth / m_PlayerHealth.maxHealth;
 	}
