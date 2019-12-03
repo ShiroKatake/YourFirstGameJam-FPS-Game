@@ -26,6 +26,8 @@ public class CrosshairManager : MonoBehaviour
 
     void Update()
     {
+		if (m_WeaponsManager == null)
+			return;
         UpdateCrosshairPointingAtEnemy(false);
         m_WasPointingAtEnemy = m_WeaponsManager.isPointingAtEnemy;
     }
